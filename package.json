@@ -1,0 +1,43 @@
+{
+  "name": "electron_avoidance",
+  "version": "1.0.0",
+  "description": "Building a Simple Obstacle Avoidance Game on Windows",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "pack": "electron-builder --dir"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tellmebaby/Electron_Avoidance.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/tellmebaby/Electron_Avoidance/issues"
+  },
+  "homepage": "https://github.com/tellmebaby/Electron_Avoidance#readme",
+  "devDependencies": {
+    "electron": "^35.1.5",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {
+    "electron-is-dev": "^3.0.1"
+  },
+  "build": {
+    "appId": "com.example.obstacle-game",
+    "productName": "장애물 피하기 게임",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "build/icon.ico"
+    }
+  }
+}

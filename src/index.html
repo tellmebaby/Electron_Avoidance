@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>장애물 피하기 게임</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="score">점수: 0</div>
+        <canvas id="gameCanvas" width="400" height="600"></canvas>
+        <svg id="playerSvg" width="50" height="50" style="position: absolute; display: none;">
+            <g id="rocketShip">
+              <!-- 로켓 본체 -->
+              <rect x="5" y="5" width="40" height="40" rx="5" fill="#3498db" />
+              <!-- 로켓 상단 -->
+              <polygon points="10,5 40,5 25,-10" fill="#e74c3c" />
+              <!-- 왼쪽 날개 -->
+              <polygon points="5,35 -10,55 5,45" fill="#2ecc71" />
+              <!-- 오른쪽 날개 -->
+              <polygon points="45,35 60,55 45,45" fill="#2ecc71" />
+              <!-- 엔진 불꽃 (애니메이션 추가 가능) -->
+              <polygon id="flame" points="15,45 35,45 25,65" fill="#f39c12">
+                <animate attributeName="points" 
+                         values="15,45 35,45 25,55; 15,45 35,45 25,70; 15,45 35,45 25,55" 
+                         dur="0.5s" 
+                         repeatCount="indefinite" />
+              </polygon>
+            </g>
+          </svg>
+        <div id="controls">
+            <button id="startButton">게임 시작</button>
+            <button id="restartButton" style="display:none;">다시 시작</button>
+        </div>
+        <div id="gameOver">
+            <h2>게임 오버!</h2>
+            <p>최종 점수: <span id="finalScore">0</span></p>
+            <button id="playAgainButton">다시 하기</button>
+        </div>
+    </div>
+
+    <script src="./game.js"></script>
+</body>
+</html>
