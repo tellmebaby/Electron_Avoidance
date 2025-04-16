@@ -8,6 +8,7 @@ const scoreDisplay = document.getElementById('score');
 const gameOverScreen = document.getElementById('gameOver');
 const finalScoreDisplay = document.getElementById('finalScore');
 
+
 // 게임 변수들
 let player;
 let obstacles = [];
@@ -19,6 +20,55 @@ let obstacleSpeed = 3;
 let obstacleFrequency = 100; // 숫자가 작을수록 장애물이 더 자주 생성됩니다.
 let frameCount = 0;
 let missileCount = 3; // 사용 가능한 미사일 수 (선택 사항)
+
+let backgroundImage = new Image();
+backgroundImage.src = 'assets/background.svg';
+let background; // 전역 변수로 선언
+
+// 배경 오류 처리
+backgroundImage.onerror = () => {
+    console.error('배경 이미지를 불러오는데 실패했습니다:', backgroundImage.src);
+    // 기본 배경색 설정
+    canvas.style.backgroundColor = '#000033';
+};
+
+class Background {
+    constructor(image) {
+        this.image = image;
+        this.y = 0;
+        this.scrollSpeed = 2;
+        this.totalHeight = image.height;
+    }
+
+    update() {
+        this.y += this.scrollSpeed;
+        
+        // 배경이 끝까지 스크롤되면 다시 처음부터 시작
+        if (this.y >= this.totalHeight) {
+            this.y = 0;
+            // 게임 클리어 보상 (선택사항)
+            score += 100;
+            scoreDisplay.textContent = `점수: ${score}`;
+        }
+    }
+
+    draw() {
+        // 배경 이미지가 로드되지 않았다면 그리지 않음
+        if (!this.image.complete || this.image.naturalHeight === 0) {
+            return;
+        }
+        
+        // 배경 이미지 그리기 (2장을 연속으로 그려서 끊김 없는 스크롤 구현)
+        ctx.drawImage(this.image, 0, -this.totalHeight + this.y, canvas.width, this.totalHeight);
+        ctx.drawImage(this.image, 0, this.y, canvas.width, this.totalHeight);
+    }
+}
+
+// 게임 초기화 시 배경 설정
+backgroundImage.onload = () => {
+    console.log('배경 이미지 로드 완료:', backgroundImage.src);
+    background = new Background(backgroundImage);
+};
 
 // 플레이어 객체 수정
 class Player {
@@ -166,6 +216,12 @@ function checkCollision(obj1, obj2) {
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
+    // 배경 업데이트 및 그리기
+    if (background) {
+        background.update();
+        background.draw();
+    }
+    
     player.update();
     player.draw();
     
@@ -253,6 +309,7 @@ function startGame() {
     
     gameLoop();
 }
+
 // 게임 오버 시 SVG 숨기기
 function gameOver() {
     gameRunning = false;

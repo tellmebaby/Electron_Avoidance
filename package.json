@@ -15,17 +15,16 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/tellmebaby/Electron_Avoidance/issues"
   },
   "homepage": "https://github.com/tellmebaby/Electron_Avoidance#readme",
   "devDependencies": {
-    "electron": "^35.1.5",
-    "electron-builder": "^26.0.12"
+    "electron": "^24.8.8",
+    "electron-builder": "^24.6.3"
   },
   "dependencies": {
-    "electron-is-dev": "^3.0.1"
+    "electron-is-dev": "^2.0.0"
   },
   "build": {
     "appId": "com.example.obstacle-game",
